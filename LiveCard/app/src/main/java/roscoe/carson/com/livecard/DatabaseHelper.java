@@ -5,7 +5,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 /**
- * Created by Carson on 11/6/2016.
+ * Created by Carson on 11/6/2016. 
  */
 public final class DatabaseHelper extends SQLiteOpenHelper {
     public static final String DATABASE_NAME = "LiveCard.db";
