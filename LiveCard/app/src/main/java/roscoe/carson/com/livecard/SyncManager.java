@@ -15,6 +15,7 @@ public final class SyncManager {
     private int cardID;
     public static SyncManager instance;
     DatabaseHelper databaseHelper;
+    HTTPHelper httpHelper;
 
     private SyncManager() {
         cardID = 0;
@@ -27,24 +28,35 @@ public final class SyncManager {
     public void initiate(Context context) {
         databaseHelper = new DatabaseHelper(context);
         SQLiteDatabase db = databaseHelper.getWritableDatabase();
-        for(int i = 0; i < 10; i++) {
-            String school = "BCIT";
-            String courseID = "COMP1" + i%2 + i%3 + i%7;
-            for(int j = 0; j < 10; j++) {
-                addCardToDatabase(db, school, courseID, "Who let the dogs out?[" + j + "]", j % 2 == 0 ? "WHO" : "YOU");
-            }
-        }
+        httpHelper = new HTTPHelper();
+        httpHelper.getCards();
+//        System.out.println("Initiate");
+//        for(Card card : httpHelper.getCards()) {
+//            System.out.println("GOGOGO");
+//            addCardToDatabase(db, card.GetDeckID(), card.GetQuestion(), card.GetAnswer(), card.GetAttachment());
+//        }
+
         db.close();
     }
 
-    private void addCardToDatabase(SQLiteDatabase db, String school, String course, String question, String answer) {
-        addCardToDatabase(db, school, course, question, answer, "");
+    private void addCardToDatabase(SQLiteDatabase db, Card card){
+        addCardToDatabase(db, card.GetDeckID(), card.GetQuestion(), card.GetAnswer(), card.GetAttachment());
     }
 
     private void addCardToDatabase(SQLiteDatabase db, String school, String course, String question, String answer, String attachment) {
         ContentValues values = new ContentValues();
         values.put(CardTable.Columns.CARD_ID, cardID++);
         values.put(CardTable.Columns.CATEGORY_ID, school + " " + course);
+        values.put(CardTable.Columns.QUESTION, question);
+        values.put(CardTable.Columns.ANSWER, answer);
+        values.put(CardTable.Columns.ATTACHMENT, attachment);
+        db.insert(CardTable.TABLE_NAME, null, values);
+    }
+
+    private void addCardToDatabase(SQLiteDatabase db, String deckID, String question, String answer, String attachment) {
+        ContentValues values = new ContentValues();
+        values.put(CardTable.Columns.CARD_ID, cardID++);
+        values.put(CardTable.Columns.CATEGORY_ID, deckID);
         values.put(CardTable.Columns.QUESTION, question);
         values.put(CardTable.Columns.ANSWER, answer);
         values.put(CardTable.Columns.ATTACHMENT, attachment);
@@ -58,6 +70,7 @@ public final class SyncManager {
 
         SQLiteDatabase db = databaseHelper.getWritableDatabase();
         addCardToDatabase(db, school.toUpperCase(), course.toUpperCase(), question.toUpperCase(), answer.toUpperCase(), attachment);
+        httpHelper.sendCardToServer(school.toUpperCase(), course.toUpperCase(), question.toUpperCase(), answer.toUpperCase(), attachment);
         db.close();
     }
 
@@ -99,5 +112,26 @@ public final class SyncManager {
 
     private boolean isEmpty(String string) {
         return string == null || string.isEmpty();
+    }
+
+    public void storeCardsFromServer(ArrayList<Card> cards) {
+        ArrayList<Deck> decks = getDecks();
+        HashMap<String, Deck> deckMap = new HashMap<>();
+        for(Deck deck : decks) {
+            deckMap.put(deck.GetCategoryID(), deck);
+        }
+
+        SQLiteDatabase db = databaseHelper.getWritableDatabase();
+
+        for(Card card : cards) {
+            if (deckMap.containsKey(card.GetDeckID())) {
+                Deck deck = deckMap.get(card.GetDeckID());
+                if (deck.HasCard(card)) {
+                    continue;
+                }
+            }
+            addCardToDatabase(db, card);
+        }
+        db.close();
     }
 }

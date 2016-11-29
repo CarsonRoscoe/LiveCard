@@ -45,4 +45,13 @@ public class Deck {
     }
 
     public String GetCategoryID() { return school + " " + courseID; }
+
+    public Boolean HasCard(Card newCard) {
+        for(Card card : cards) {
+            if (card.GetQuestion().equals(newCard.GetQuestion())) {
+                return true;
+            }
+        }
+        return false;
+    }
 }

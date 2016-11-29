@@ -36,11 +36,6 @@ public class SignInActivity extends AppCompatActivity {
     public void onSignInButtonClicked() {
         String username = ((EditText)findViewById(R.id.usernameEditText_signIn)).getText().toString();
         String password = ((EditText)findViewById(R.id.passwordEditText_signIn)).getText().toString();
-        Intent intent = new Intent();
-        intent.putExtra("username", username);
-        intent.putExtra("password", password);
-        intent.putExtra("rememberMe", rememberMe);
-        setResult(Activity.RESULT_OK, intent);
-        finish();
+        SignInManager.instance.trySignIn(this, username, password);
     }
 }

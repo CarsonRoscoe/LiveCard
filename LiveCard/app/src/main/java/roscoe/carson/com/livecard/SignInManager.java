@@ -1,5 +1,7 @@
 package roscoe.carson.com.livecard;
 
+import android.app.Activity;
+import android.content.Context;
 /**
  * Created by Carson on 11/6/2016.
  */
@@ -13,6 +15,10 @@ public class SignInManager {
 
     static {
         instance = new SignInManager();
+    }
+
+    public void trySignIn(Activity activity, String username, String password) {
+        new HTTPHelper(activity).trySignIn(username, password);
     }
 
     public void signIn() {

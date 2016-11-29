@@ -83,6 +83,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onResume() {
         super.onResume();
+
         DeckManager.instance.reloadSyncDecks();
         String[] values = DeckManager.instance.getDeckIDs();
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, android.R.id.text1, values);
@@ -127,7 +128,7 @@ public class MainActivity extends AppCompatActivity {
         if (requestCode == SIGNIN_REQUEST) {
             if (data != null) {
                 Bundle extras = data.getExtras();
-                if (extras.containsKey("username") && extras.containsKey("password")) {
+                if (extras.containsKey("success") && extras.getBoolean("success")) {
                     System.out.println("SignIn Request Received");
                     SignInManager.instance.signIn();
                     reloadSignedIn(SignInManager.instance.isSignedIn());
