@@ -1,7 +1,7 @@
-package roscoe.carson.com.livecard;
+package roscoe.carson.com.livecard.http;
 
 import android.app.Activity;
-import android.content.Context;
+
 /**
  * Created by Carson on 11/6/2016.
  */

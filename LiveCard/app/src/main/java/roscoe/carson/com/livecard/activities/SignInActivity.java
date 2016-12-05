@@ -1,7 +1,5 @@
-package roscoe.carson.com.livecard;
+package roscoe.carson.com.livecard.activities;
 
-import android.app.Activity;
-import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -9,6 +7,9 @@ import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.Switch;
+
+import roscoe.carson.com.livecard.R;
+import roscoe.carson.com.livecard.http.SignInManager;
 
 public class SignInActivity extends AppCompatActivity {
     private boolean rememberMe = false;

@@ -1,7 +1,6 @@
-package roscoe.carson.com.livecard;
+package roscoe.carson.com.livecard.http;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 
@@ -9,16 +8,16 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.io.BufferedInputStream;
-import java.io.BufferedWriter;
 import java.io.InputStream;
-import java.io.OutputStream;
-import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
 import java.net.URLEncoder;
 import java.io.DataOutputStream;
 import java.io.DataInputStream;
+
+import roscoe.carson.com.livecard.sync.SyncManager;
+import roscoe.carson.com.livecard.datamodels.Card;
 
 /**
  * Created by Carson on 11/28/2016.
@@ -80,7 +79,7 @@ public class HTTPHelper {
         return json.toString();
     }
 
-    void trySignIn(String username, String password) {
+    public void trySignIn(String username, String password) {
         new ReceiveLoginAttemptTask().execute(username, password);
     }
 

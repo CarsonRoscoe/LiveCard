@@ -1,4 +1,4 @@
-package roscoe.carson.com.livecard;
+package roscoe.carson.com.livecard.activities;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -7,6 +7,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+
+import roscoe.carson.com.livecard.R;
 
 public class JoinActivity extends AppCompatActivity {
 

@@ -1,4 +1,4 @@
-package roscoe.carson.com.livecard;
+package roscoe.carson.com.livecard.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -10,6 +10,11 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
+
+import roscoe.carson.com.livecard.R;
+import roscoe.carson.com.livecard.datamodels.DeckManager;
+import roscoe.carson.com.livecard.http.SignInManager;
+import roscoe.carson.com.livecard.sync.SyncManager;
 
 public class MainActivity extends AppCompatActivity {
     static final int SIGNIN_REQUEST = 1;

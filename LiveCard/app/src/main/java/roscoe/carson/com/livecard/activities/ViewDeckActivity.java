@@ -1,17 +1,27 @@
-package roscoe.carson.com.livecard;
+package roscoe.carson.com.livecard.activities;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Base64;
 import android.view.View;
 import android.widget.Button;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
 
+import roscoe.carson.com.livecard.R;
+import roscoe.carson.com.livecard.datamodels.Card;
+import roscoe.carson.com.livecard.datamodels.Deck;
+import roscoe.carson.com.livecard.datamodels.DeckManager;
+
 public class ViewDeckActivity extends AppCompatActivity {
     TextView questionTextView;
     TextView answerTextView;
+    ImageView attachmentImage;
     int currentCardIndex;
     Deck deck;
 
@@ -32,7 +42,8 @@ public class ViewDeckActivity extends AppCompatActivity {
         FrameLayout cardFrame = (FrameLayout)findViewById(R.id.cardFrameLayout_viewDeck);
         questionTextView = (TextView)findViewById(R.id.questionTextView_viewDeck);
         answerTextView = (TextView)findViewById(R.id.answerTextView_viewDeck);
-
+        attachmentImage = ((ImageView)findViewById(R.id.attachmentImage_viewDeck));
+        attachmentImage.setVisibility(View.INVISIBLE);
 
         ArrayList<Card> cards = deck.GetCards();
         if (cards.size() > 0) {
@@ -88,6 +99,7 @@ public class ViewDeckActivity extends AppCompatActivity {
         Card card = deck.GetCards().get(index);
         questionTextView.setText(card.GetQuestion());
         answerTextView.setText("");
+        attachmentImage.setVisibility(View.INVISIBLE);
     }
 
     private void onRightButtonClicked() {
@@ -116,6 +128,14 @@ public class ViewDeckActivity extends AppCompatActivity {
     }
 
     private void onFlipCard() {
-        answerTextView.setText(deck.GetCards().get(currentCardIndex).GetAnswer());
+        Card currentCard = deck.GetCards().get(currentCardIndex);
+        answerTextView.setText(currentCard.GetAnswer());
+        String attachment = currentCard.GetAttachment();
+        if (attachment != "") {
+            attachmentImage.setVisibility(View.VISIBLE);
+            byte[] decodedString = Base64.decode(attachment, Base64.DEFAULT);
+            Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
+            attachmentImage.setImageBitmap(decodedByte);
+        }
     }
 }

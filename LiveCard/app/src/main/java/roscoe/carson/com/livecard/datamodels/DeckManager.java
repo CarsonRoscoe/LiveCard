@@ -1,6 +1,8 @@
-package roscoe.carson.com.livecard;
+package roscoe.carson.com.livecard.datamodels;
 
 import java.util.ArrayList;
+
+import roscoe.carson.com.livecard.sync.SyncManager;
 
 
 /**

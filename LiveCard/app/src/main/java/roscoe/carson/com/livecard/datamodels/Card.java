@@ -1,4 +1,4 @@
-package roscoe.carson.com.livecard;
+package roscoe.carson.com.livecard.datamodels;
 
 /**
  * Created by Carson on 11/5/2016.

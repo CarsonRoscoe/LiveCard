@@ -3,6 +3,7 @@
     package="roscoe.carson.com.livecard">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-feature android:name="android.hardware.camera" android:required="true" />
 
     <application
         android:allowBackup="true"
@@ -11,7 +12,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".MainActivity"
+            android:name=".activities.MainActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme">
             <intent-filter>
@@ -20,10 +21,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".SignInActivity" />
-        <activity android:name=".JoinActivity" />
-        <activity android:name=".ViewDeckActivity" />
-        <activity android:name=".CreateCardActivity" />
+        <activity android:name=".activities.SignInActivity" />
+        <activity android:name=".activities.JoinActivity" />
+        <activity android:name=".activities.ViewDeckActivity" />
+        <activity android:name=".activities.CreateCardActivity" />
     </application>
 
 </manifest>

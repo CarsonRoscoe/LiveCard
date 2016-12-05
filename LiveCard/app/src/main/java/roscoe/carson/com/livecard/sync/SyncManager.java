@@ -1,4 +1,4 @@
-package roscoe.carson.com.livecard;
+package roscoe.carson.com.livecard.sync;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -7,6 +7,12 @@ import android.database.sqlite.SQLiteDatabase;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+
+import roscoe.carson.com.livecard.database.CardTable;
+import roscoe.carson.com.livecard.database.DatabaseHelper;
+import roscoe.carson.com.livecard.datamodels.Card;
+import roscoe.carson.com.livecard.datamodels.Deck;
+import roscoe.carson.com.livecard.http.HTTPHelper;
 
 /**
  * Created by Carson on 11/5/2016.
